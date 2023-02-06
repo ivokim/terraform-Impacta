@@ -106,18 +106,6 @@ resource "azurerm_network_interface_security_group_association" "example" {
   network_security_group_id = azurerm_network_security_group.my_terraform_nsg.id
 }
 
-
-
-# Create storage account for boot diagnostics
-resource "azurerm_storage_account" "my_storage_account" {
-  name                     = "IvoRafelFabricioSergioLuiz"
-  location                 = azurerm_resource_group.rg.location
-  resource_group_name      = azurerm_resource_group.rg.name
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-}
-
-
 # Create virtual machine
 resource "azurerm_virtual_machine" "vm-aulainfra" {
   name                  = "vm-aula"
@@ -159,8 +147,8 @@ resource "null_resource" "install-apache" {
   connection {
     type     = "ssh"
     host     = azurerm_public_ip.ip-aulainfra.ip_address
-    user     = "testeadmin"
-    password = "Password1234!"
+    user     = var.user
+    password = var.pwd_user
   }
 
   provisioner "remote-exec" {
