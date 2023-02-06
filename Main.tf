@@ -130,8 +130,8 @@ resource "azurerm_virtual_machine" "vm-aulainfra" {
 
   os_profile {
     computer_name  = "hostname"
-    admin_username = "testeadmin"
-    admin_password = "Password1234!"
+    admin_username = var.user
+    admin_password = var.pwd_user
   }
 
   os_profile_linux_config {
